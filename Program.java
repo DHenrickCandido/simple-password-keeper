@@ -13,20 +13,21 @@ public class Program
             int qtd = Integer.parseInt(in.nextLine());
             String[] redesVector = new String[qtd];
             String[] senhasVector = new String[qtd];
-
-            while (in.hasNextLine()) {    
-                String[] line = in.nextLine().split(":");
-                redesVector[i] = line[0];
-                senhasVector[i] = line[1];
-                i++; 
+            if (qtd != 0) {
+                while (in.hasNextLine()) {    
+                    String[] line = in.nextLine().split(":");
+                    redesVector[i] = line[0];
+                    senhasVector[i] = line[1];
+                    i++; 
+                }
             }
-
             Senhas senhas = new Senhas(qtd,redesVector, senhasVector);
 
             while(on == true)
             {
                 System.out.println("\n=============MENU============");
                 System.out.println("Escolha uma opção:");
+                System.out.println("0 - fechar o programa");
                 System.out.println("1 - add uma nova senha");
                 System.out.println("2 - mudar senha existente");
                 System.out.println("3 - descobrir senha");
@@ -45,39 +46,47 @@ public class Program
                     arq.close();
                     on = false;
                 }
-                switch (choose) {
-                    case 1:
-                        System.out.println("\n=============ADD============");
-                        System.out.printf("Digite uma rede:");
-                        String rede = Teclado.getUmString();                       
-                        System.out.printf("Digite uma senha:");
-                        String senha = Teclado.getUmString();
-                        senhas.addSenha(rede, senha);
-                        break;
-        
-                    case 2:
-                        System.out.println("\n=============MUDAR============");
-                        System.out.printf("Digite uma rede:");
-                        String redeMudar = Teclado.getUmString();  
-                        System.out.printf("Digite uma senha:");
-                        String senhaMudar = Teclado.getUmString();
-                        senhas.altSenha(redeMudar, senhaMudar);
-                        break;
-        
-                    case 3:
-                        System.out.println("\n=============PESQUISAR============");
-                        System.out.printf("Digite uma rede:");
-                        String redePesq = Teclado.getUmString();
-                        System.out.println("\n============="+redePesq+"============");
-                        System.out.println("SENHA:"+senhas.returnSenha(redePesq));
-                        System.out.println("\n=====================================");
-                        break;
-        
-                    case 4:
-                        System.out.println("=============SENHAS============");
-                        System.out.println(senhas);
-                        System.out.println("===============================");
-                        break;
+                if (choose == 1) 
+                {
+                    qtd = 1;
+                    System.out.println("\n=============ADD============");
+                    System.out.printf("Digite uma rede:");
+                    String rede = Teclado.getUmString();                       
+                    System.out.printf("Digite uma senha:");
+                    String senha = Teclado.getUmString();
+                    senhas.addSenha(rede, senha);
+                }
+                if (qtd == 0)
+                {
+                    System.out.println("Nao ha senhas cadastradas");
+                }
+                else if(qtd != 0)
+                {
+                    switch (choose) {        
+                        case 2:
+                            System.out.println("\n=============MUDAR============");
+                            System.out.printf("Digite uma rede:");
+                            String redeMudar = Teclado.getUmString();  
+                            System.out.printf("Digite uma senha:");
+                            String senhaMudar = Teclado.getUmString();
+                            senhas.altSenha(redeMudar, senhaMudar);
+                            break;
+
+                        case 3:
+                            System.out.println("\n=============PESQUISAR============");
+                            System.out.printf("Digite uma rede:");
+                            String redePesq = Teclado.getUmString();
+                            System.out.println("\n============="+redePesq+"============");
+                            System.out.println("SENHA:"+senhas.returnSenha(redePesq));
+                            System.out.println("\n=====================================");
+                            break;
+
+                        case 4:
+                            System.out.println("=============SENHAS============");
+                            System.out.println(senhas);
+                            System.out.println("===============================");
+                            break;
+                    }
                 }
 
             }
